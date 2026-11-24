@@ -1,0 +1,10 @@
+{
+  "titel": "Soll der naechtliche Sicherungslauf auf 03:00 verschoben werden?",
+  "optionen": [
+    {"label": "Ja, auf 03:00 verschieben", "empfehlung": true},
+    {"label": "Nein, bei 02:00 belassen"}
+  ],
+  "praemisse": {"text": "Der Lauf kollidiert mit dem Wartungsfenster", "gemessen_um": "02:14", "instrument": "Job-Protokoll"},
+  "wirkung": "Sicherung endet 60 Minuten spaeter, kein Datenverlust",
+  "klasse": "reversibel"
+}
