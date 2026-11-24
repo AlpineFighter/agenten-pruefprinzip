@@ -44,3 +44,15 @@ def test_unbekannte_klasse_abgewiesen():
     f = copy.deepcopy(BEISPIEL)
     f["klasse"] = "egal"
     assert rueckfrage.pruefe(f)
+
+
+def test_leerer_praemissentext_abgewiesen():
+    f = copy.deepcopy(BEISPIEL)
+    f["praemisse"]["text"] = "   "
+    assert any("praemisse.text" in x for x in rueckfrage.pruefe(f))
+
+
+def test_zwei_empfehlungen_abgewiesen():
+    f = copy.deepcopy(BEISPIEL)
+    f["optionen"][1]["empfehlung"] = True
+    assert any("genau eine" in x for x in rueckfrage.pruefe(f))

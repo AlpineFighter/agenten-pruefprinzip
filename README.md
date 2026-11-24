@@ -8,7 +8,7 @@ wird. Alle Daten sind erfunden, keine externen Dienste nötig (ausser `pytest` z
 1. **Belegen statt behaupten.** "Erledigt" gilt erst mit gemessener Uhrzeit und Ausgabe, die den Vollzug zeigt.
 2. **Der Mensch entscheidet, der Agent empfiehlt.** Fragen kommen als Optionset: Empfehlung zuerst, mit Prämisse, Wirkung, Klasse.
 3. **Nachschlagen vor dem Urteil.** Früher Gemessenes wird gesucht, bevor eine Ursache behauptet wird.
-4. **Jede Prüfung muss rot werden können.** Ein Test ohne Rotprobe zählt nicht; Geheimnisse verlassen den Agenten nie.
+4. **Jede Prüfung muss rot werden können.** Ein Test ohne Rotprobe zählt nicht; Geheimnisse werden abgefangen, bevor sie in einer Ausgabe landen.
 
 | Beispiel | Punkt | Inhalt |
 |---|---|---|

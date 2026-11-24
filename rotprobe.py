@@ -1,6 +1,6 @@
 """Rotprobe: Je Beispiel wird die Kernpruefung in einer KOPIE entfernt (reine Textersetzung,
 kein Prozess-, Loesch- oder Netzbefehl). Der Test muss rot werden. Das Original bleibt unberuehrt.
-Aufruf: python3 rotprobe.py   (Exit 0 nur, wenn alle drei Mutanten rot sind)"""
+Aufruf: python3 rotprobe.py   (Exit 0 nur, wenn alle sieben Mutanten rot sind)"""
 import pathlib
 import shutil
 import subprocess
@@ -13,6 +13,11 @@ MUTANTEN = [
      'if not optionen or optionen[0].get("empfehlung") is not True:', "if False:"),
     ("beleg-waechter", "beleg_waechter.py", "if BEHAUPTUNG.search(text):", "if False:"),
     ("wissenssuche", "wissenssuche.py", "treffer.sort(key=lambda x: -x[0])", "pass"),
+    ("rueckfrage", "rueckfrage.py", 'if not str(prae.get("text", "")).strip():', "if False:"),
+    ("rueckfrage", "rueckfrage.py", 'for o in optionen if o.get("empfehlung") is True) > 1:',
+     'for o in optionen if o.get("empfehlung") is True) > 99:'),
+    ("beleg-waechter", "beleg_waechter.py", "ZEITSTEMPEL.search(text) and BEFEHL_ODER_AUSGABE", "ZEITSTEMPEL.search(text) or BEFEHL_ODER_AUSGABE"),
+    ("wissenssuche", "wissenssuche.py", "text.lower().translate(UMLAUTE)", "text.lower()"),
 ]
 
 ok = True
@@ -27,7 +32,7 @@ for ordner, datei, alt, neu in MUTANTEN:
         r = subprocess.run([sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", str(ziel)],
                            capture_output=True, text=True)
         rot = r.returncode != 0
-        print("%-15s Mutant %s" % (ordner, "ROT (gut)" if rot else "GRUEN (Pruefung wirkungslos!)"))
+        print("%-15s %-22s Mutant %s" % (ordner, alt[:22], "ROT (gut)" if rot else "GRUEN (Pruefung wirkungslos!)"))
         print("   " + (r.stdout.strip().splitlines() or [""])[-1])
         ok = ok and rot
 sys.exit(0 if ok else 1)

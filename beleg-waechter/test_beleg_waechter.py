@@ -66,3 +66,15 @@ def test_letzte_antwort_zaehlt_nicht_die_vorherige(tmp_path):
     neu = {"type": "assistant", "message": {"content": [{"type": "text", "text": "Ich schaue nach."}]}}
     p.write_text("\n".join(json.dumps(z) for z in (alt, neu_user, neu)), encoding="utf-8")
     assert hook({"transcript_path": str(p)}) is None
+
+
+def test_zeitstempel_allein_genuegt_nicht():
+    assert bw.beurteile("Erledigt um 14:32.")[0] is True
+
+
+def test_befehl_allein_genuegt_nicht():
+    assert bw.beurteile("Erledigt.\n$ systemctl is-active dienst\nactive")[0] is True
+
+
+def test_zeitstempel_und_befehl_genuegen():
+    assert bw.beurteile("Erledigt 14:32.\n$ systemctl is-active dienst\nactive") == (False, "")

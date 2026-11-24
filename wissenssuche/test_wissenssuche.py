@@ -35,3 +35,8 @@ def test_rangfolge_absteigend():
 
 def test_unverwandte_frage_liefert_nichts():
     assert ws.suche("Pizza Rezept Tomaten", EINTRAEGE, backend="tfidf") == []
+
+
+def test_umlaute_werden_auf_ascii_gefaltet():
+    # Das Log schreibt "laeuft"; die Frage mit Umlaut muss trotzdem treffen.
+    assert "Zertifikat" in erster("läuft")
